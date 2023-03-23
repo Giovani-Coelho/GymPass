@@ -1,5 +1,7 @@
 # GymPass
 
+Uma api de academia usada para cadastro e checkin
+
 ### Requisitos Funcionais
 
 - [] Deve ser possivel se cadastrar.
