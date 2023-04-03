@@ -4,7 +4,7 @@ Uma api de academia usada para cadastro e checkin
 
 ### Requisitos Funcionais
 
-- [] Deve ser possivel se cadastrar.
+- [x] Deve ser possivel se cadastrar.
 - [] Deve ser possivel se autenticar.
 - [] Deve ser possivel obter o perfil de um usuario logado.
 - [] Deve ser possivel obter o numero de check-ins realizado pelo usuario logado.
@@ -17,7 +17,7 @@ Uma api de academia usada para cadastro e checkin
 
 ## Regras de Negocio
 
-- [] Usuario nao deve poder se cadastrar com um e-mail duplicado.
+- [x] Usuario nao deve poder se cadastrar com um e-mail duplicado.
 - [] O usuario nao pode fazer 2 check-ins no mesmo dia.
 - [] O usuario nao pode fazer check-in se nao estiver perto (100m) da academia.
 - [] O check-in soh pode ser validado ate 28 minutos apos criado.
@@ -26,7 +26,7 @@ Uma api de academia usada para cadastro e checkin
 
 ## Requisitos nao funcionais
 
-- [] A senha do usuario precisa estar criptografada.
+- [x] A senha do usuario precisa estar criptografada.
 - [] Os dados da aplicacao precisam estar persistidos em um bando PostgresSQL.
 - [] Todas listas de dados precisam estar paginados com 20 itens por pagina.
 - [] O usuario deve ser identificado por um JWT.
