@@ -3,6 +3,10 @@ import { Prisma, User } from '@prisma/client'
 import { IUserRepository } from '../interface/IUsersRepository'
 
 export class PrismaUsersRepository implements IUserRepository {
+  findById(id: string): Promise<User | null> {
+    throw new Error('Method not implemented.')
+  }
+
   async create(data: Prisma.UserCreateInput) {
     const user = await prisma.user.create({
       data,
