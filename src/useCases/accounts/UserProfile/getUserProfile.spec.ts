@@ -34,7 +34,7 @@ describe('Authenticate Use Case', () => {
 
   it('sould not be able to get user profile with wrong id', async () => {
     // espero que ao authenticar o usuario o email seja incorreto
-    expect(() =>
+    await expect(() =>
       sut.execute({
         userId: 'non-existing-id',
       }),
