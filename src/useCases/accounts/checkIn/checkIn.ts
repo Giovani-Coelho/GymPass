@@ -1,9 +1,13 @@
 import { ICheckInsRepository } from '@/repositories/interface/ICheck-ins-repository'
+import { IGymsRepository } from '@/repositories/interface/IGymsRepository'
 import { CheckIn } from '@prisma/client'
+import { ResourceNotFound } from '../errors/resourceNotFound'
 
 interface ICheckInUseCaseRequest {
   userId: string
   gymId: string
+  userLatitudo: number
+  userLongitude: number
 }
 
 interface ICheckInUseCaseResponse {
@@ -11,13 +15,24 @@ interface ICheckInUseCaseResponse {
 }
 
 export class CheckInUseCase {
-  // eslint-disable-next-line prettier/prettier
-  constructor(private checkInRepository: ICheckInsRepository) { }
+  constructor(
+    private checkInRepository: ICheckInsRepository,
+    private gymsRepository: IGymsRepository, // eslint-disable-next-line prettier/prettier
+  ) { }
 
   public async execute({
     userId,
     gymId,
   }: ICheckInUseCaseRequest): Promise<ICheckInUseCaseResponse> {
+    const gym = await this.gymsRepository.findById(gymId)
+
+    if (!gym) {
+      throw new ResourceNotFound()
+    }
+
+    // calcular a distancia entre o usuario e a academia
+    // se a distancia for maior que 100m return err
+
     const checkInOnsameDay = await this.checkInRepository.findbyUserIdOnDate(
       userId,
       new Date(),

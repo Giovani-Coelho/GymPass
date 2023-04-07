@@ -18,7 +18,7 @@ Uma api de academia usada para cadastro e checkin
 ## Regras de Negocio
 
 - [x] Usuario nao deve poder se cadastrar com um e-mail duplicado.
-- [] O usuario nao pode fazer 2 check-ins no mesmo dia.
+- [x] O usuario nao pode fazer 2 check-ins no mesmo dia.
 - [] O usuario nao pode fazer check-in se nao estiver perto (100m) da academia.
 - [] O check-in soh pode ser validado ate 28 minutos apos criado.
 - [] O check-in soh pode ser validado por administradores.
