@@ -3,24 +3,26 @@ import { afterEach, describe, it, expect, beforeEach, vi } from 'vitest'
 import { CheckInUseCase } from './checkIn'
 import { InMemoryGymsRepository } from '@/repositories/prisma/in-memory/in-memory-gyms-repository'
 import { Decimal } from '@prisma/client/runtime'
+import { MaxNumberOfCheckInError } from '../errors/maxNumberOfCheckInError'
+import { MaxDistanceError } from '../errors/ maxDistanceError'
 
 let checkInsRepository: InMemoryCheckInsRepository
 let gymsRepository: InMemoryGymsRepository
 let sut: CheckInUseCase
 
 describe('Register Use Case', () => {
-  beforeEach(() => {
+  beforeEach(async () => {
     checkInsRepository = new InMemoryCheckInsRepository()
     gymsRepository = new InMemoryGymsRepository()
     sut = new CheckInUseCase(checkInsRepository, gymsRepository)
 
-    gymsRepository.items.push({
+    await gymsRepository.create({
       id: 'gym-01',
       title: 'academia',
-      description: '',
-      phone: '',
-      latitude: new Decimal(0),
-      longitude: new Decimal(0),
+      description: null,
+      phone: null,
+      latitude: -27.2092052,
+      longitude: -49.6401091,
     })
 
     // para usar datas ficticias
@@ -36,8 +38,8 @@ describe('Register Use Case', () => {
     const { checkIn } = await sut.execute({
       userId: 'user-01',
       gymId: 'gym-01',
-      userLatitude: 0,
-      userLongitude: 0,
+      userLatitude: -27.2092052,
+      userLongitude: -49.6401091,
     })
 
     // espero que o id do usuario seja do tipo de qualquer string.
@@ -51,18 +53,18 @@ describe('Register Use Case', () => {
     await sut.execute({
       userId: 'user-01',
       gymId: 'gym-01',
-      userLatitude: 0,
-      userLongitude: 0,
+      userLatitude: -27.2092052,
+      userLongitude: -49.6401091,
     })
 
     await expect(() =>
       sut.execute({
         userId: 'user-01',
         gymId: 'gym-01',
-        userLatitude: 0,
-        userLongitude: 0,
+        userLatitude: -27.2092052,
+        userLongitude: -49.6401091,
       }),
-    ).rejects.toBeInstanceOf(Error)
+    ).rejects.toBeInstanceOf(MaxNumberOfCheckInError)
   })
 
   it('should be able to check in in twice but in different days', async () => {
@@ -72,8 +74,8 @@ describe('Register Use Case', () => {
     await sut.execute({
       userId: 'user-01',
       gymId: 'gym-01',
-      userLatitude: 0,
-      userLongitude: 0,
+      userLatitude: -27.2092052,
+      userLongitude: -49.6401091,
     })
 
     // definindo outro dia
@@ -84,8 +86,8 @@ describe('Register Use Case', () => {
     const { checkIn } = await sut.execute({
       userId: 'user-01',
       gymId: 'gym-01',
-      userLatitude: 0,
-      userLongitude: 0,
+      userLatitude: -27.2092052,
+      userLongitude: -49.6401091,
     })
 
     expect(checkIn.id).toEqual(expect.any(String))
@@ -94,22 +96,22 @@ describe('Register Use Case', () => {
   it('should not be able to check in on distant gym ', async () => {
     // localizacao da academia
     gymsRepository.items.push({
-      id: 'gym-01',
+      id: 'gym-02',
       title: 'academia',
       description: '',
       phone: '',
-      latitude: new Decimal(-27.5253294),
-      longitude: new Decimal(153.0138339),
+      latitude: new Decimal(-27.0747279),
+      longitude: new Decimal(-49.4889672),
     })
 
     // localizacao do usaurio maior que 100m de distancia da academia
     await expect(() =>
       sut.execute({
-        userId: 'user-01',
-        gymId: 'gym-01',
-        userLatitude: -27.5283838,
-        userLongitude: 153.0298674,
+        userId: 'user-02',
+        gymId: 'gym-02',
+        userLatitude: -27.2092052,
+        userLongitude: -49.6401091,
       }),
-    ).rejects.toBeInstanceOf(Error)
+    ).rejects.toBeInstanceOf(MaxDistanceError)
   })
 })
