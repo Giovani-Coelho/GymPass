@@ -1,6 +1,33 @@
-# GymPass
 
-### Requisitos Funcionais
+<h1 align="center">
+  GymPass
+</h1>
+
+<h3 align="center">
+  Essa API tem como objetivo a realização de check-in em uma academia.
+</h3>
+
+<p align="center">
+  <a href="#-sobre-o-projeto">Sobre o Projeto</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-tecnologias">Tecnologias</a>&nbsp;&nbsp;&nbsp;
+</p>
+
+## 👨🏻‍💻 Sobre o Projeto 
+
+## 🚀 Tecnologias
+
+Principais tecnologias usadas para desenvolver esta API
+
+- [Node.js](https://nodejs.org/en/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Fastify](https://www.fastify.io/)
+- [Prisma](https://www.prisma.io/)
+- [PostgreSQL](https://www.postgresql.org/)
+- [Docker](https://www.docker.com/)
+- [Zod](https://github.com/colinhacks/zod)
+- [DayJs](https://day.js.org/)
+
+## Requisitos Funcionais
 
 - [x] Deve ser possivel se cadastrar.
 - [x] Deve ser possivel se autenticar.
