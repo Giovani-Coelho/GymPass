@@ -1,6 +1,6 @@
 import { InMemoryCheckInsRepository } from '@/repositories/prisma/in-memory/in-memory-checkIn-repository'
 import { describe, it, expect, beforeEach } from 'vitest'
-import { FetchCheckInHistoryUseCase } from './fetchCheckInHistoryUseCase'
+import { FetchCheckInHistoryUseCase } from './fetchCheckInHistory'
 
 let checkInsRepository: InMemoryCheckInsRepository
 let sut: FetchCheckInHistoryUseCase
