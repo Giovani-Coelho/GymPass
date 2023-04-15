@@ -1,11 +1,18 @@
+import { makeUserProfileUseCase } from '@/useCases/factories/make-userProfile-useCase'
 import { FastifyRequest, FastifyReply } from 'fastify'
 
 export async function profile(req: FastifyRequest, res: FastifyReply) {
-  // verificar se o token enviado foi gerado por esse backeng
-  // essa funcao faz com que seja obrigatorio o uso de token
-  await req.jwtVerify()
+  const getUserProfile = makeUserProfileUseCase()
 
-  console.log(req.user.sub)
+  const { user } = await getUserProfile.execute({
+    userId: req.user.sub,
+  })
 
-  return res.status(201).send()
+  return res.status(201).send({
+    user: {
+      ...user,
+      // para nao retornar a senha do usuario
+      password_hash: undefined,
+    },
+  })
 }
