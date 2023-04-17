@@ -10,7 +10,7 @@ interface ISearchGymsUseCaseResponse {
   gym: Gym[]
 }
 
-export class SearchGymsUseCaseUeCase {
+export class SearchGymsUseCase {
   // eslint-disable-next-line prettier/prettier
   constructor(private gymRepository: IGymsRepository) { }
 
