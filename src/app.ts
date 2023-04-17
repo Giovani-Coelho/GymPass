@@ -1,8 +1,9 @@
 import fastify from 'fastify'
 import { env } from './env'
 import { ZodError } from 'zod'
-import { appRoutes } from '../src/http/routes'
 import fastifyJwt from '@fastify/jwt'
+import { accountRoutes } from './http/controllers/accounts/routes'
+import { gymsRoutes } from './http/controllers/gyms/routes'
 
 export const app = fastify()
 
@@ -10,7 +11,8 @@ app.register(fastifyJwt, {
   secret: env.JWT_SECRET,
 })
 
-app.register(appRoutes)
+app.register(accountRoutes)
+app.register(gymsRoutes)
 
 // o _ para falar que nao vou usar esse parametro
 app.setErrorHandler((err, _, res) => {
