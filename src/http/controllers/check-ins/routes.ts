@@ -5,11 +5,11 @@ import { validate } from './validate'
 import { history } from './history'
 import { metrics } from './metric'
 
-export async function gymsRoutes(app: FastifyInstance) {
+export async function checkInRoutes(app: FastifyInstance) {
   // todas as rotas a partir desta linha vao ser verificada a authentication
   app.addHook('onRequest', verifyJWT)
 
-  app.get('check-ins/history', history)
+  app.get('/check-ins/history', history)
   app.get('/check-ins/metrics', metrics)
 
   app.post('/gyms/:gymId/check-ins', create)

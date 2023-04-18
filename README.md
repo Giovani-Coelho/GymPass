@@ -54,4 +54,4 @@ Principais tecnologias usadas para desenvolver esta API
 - [x] A senha do usuario precisa estar criptografada.
 - [x] Os dados da aplicacao precisam estar persistidos em um bando PostgresSQL.
 - [x] Todas listas de dados precisam estar paginados com 20 itens por pagina.
-- [] O usuario deve ser identificado por um JWT.
+- [x] O usuario deve ser identificado por um JWT.

@@ -1,6 +1,7 @@
 import { FastifyRequest, FastifyReply } from 'fastify'
 import { z } from 'zod'
 import { makeCheckInUseCase } from '@/useCases/factories/make-checkIn-useCase'
+import { MaxNumberOfCheckInError } from '@/useCases/accounts/errors/maxNumberOfCheckInError'
 
 export async function create(req: FastifyRequest, res: FastifyReply) {
   const createCheckInParamsSchema = z.object({
@@ -16,13 +17,18 @@ export async function create(req: FastifyRequest, res: FastifyReply) {
   const { latitude, longitude } = createCheckInBodySchema.parse(req.body)
 
   const createGymUseCase = makeCheckInUseCase()
-
-  await createGymUseCase.execute({
-    gymId,
-    userId: req.user.sub,
-    userLatitude: latitude,
-    userLongitude: longitude,
-  })
+  try {
+    await createGymUseCase.execute({
+      gymId,
+      userId: req.user.sub,
+      userLatitude: latitude,
+      userLongitude: longitude,
+    })
+  } catch (err) {
+    if (err instanceof MaxNumberOfCheckInError) {
+      return res.status(400).send({ message: err.message })
+    }
+  }
 
   return res.status(201).send()
 }
