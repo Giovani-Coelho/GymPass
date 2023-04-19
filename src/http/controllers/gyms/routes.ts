@@ -3,6 +3,7 @@ import { verifyJWT } from '../../middlewares/varify-jwt'
 import { search } from './search'
 import { nearby } from './nearby'
 import { create } from './create'
+import { onlyAdmin } from '@/http/middlewares/only-admin'
 
 export async function gymsRoutes(app: FastifyInstance) {
   // todas as rotas a partir desta linha vao ser verificada a authentication
@@ -11,5 +12,5 @@ export async function gymsRoutes(app: FastifyInstance) {
   app.get('/gyms/search', search)
   app.get('/gyms/nearby', nearby)
 
-  app.post('/gyms', create)
+  app.post('/gyms', { onRequest: onlyAdmin('ADMIN') }, create)
 }
