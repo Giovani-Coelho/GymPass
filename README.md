@@ -7,13 +7,6 @@
   Essa API tem como objetivo a realização de check-in em uma academia.
 </h3>
 
-<p align="center">
-  <a href="#-sobre-o-projeto">Sobre o Projeto</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#-tecnologias">Tecnologias</a>&nbsp;&nbsp;&nbsp;
-</p>
-
-## 👨🏻‍💻 Sobre o Projeto 
-
 ## 🚀 Tecnologias
 
 Principais tecnologias usadas para desenvolver esta API
